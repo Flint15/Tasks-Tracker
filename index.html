@@ -6,18 +6,23 @@
 </head>
 <body>
   
-  <input class="js-task-name-input"
-    type="text" placeholder="Name"
-    onkeypress="keyPressed(event)">
-
-  <button class="js-create-button create-button"
-    onclick="createTask()">
-    Create
-  </button>
-
-  <div class="js-tasks-paragraph tasks-paragraph">
-  </div>
-  <div class="tasks-container">
+  <div class="content">
+    <div class="create-task-field">
+      <input class="js-task-name-input task-name-input"
+        type="text" placeholder="Name"
+        onkeypress="keyPressed(event)">
+    
+      <button class="js-create-button create-button"
+        onclick="createTask()">
+        Create
+      </button>
+    </div>
+  
+    <div class="js-tasks-paragraph tasks-paragraph">
+    </div>
+    
+    <div class="tasks-container">
+    </div>
   </div>
 
   <script src="./script.js">
