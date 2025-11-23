@@ -3,7 +3,6 @@ const taskNameInput = document.querySelector('.js-task-name-input')
 const taskField = document.querySelector('.tasks-container')
 
 let tasksQuantity = 0
-let firstTask = false
 let isTasksParagraph = false
 const complitedTasks = {}
 
@@ -27,18 +26,36 @@ function defineData() {
     const tasksNamesList = JSON
       .parse(tasksNamesListStorage)
 
+    tasksQuantity = tasksList.length
+
     return { tasksNamesList, tasksList }
   }
   
   return { tasksNamesList: [], tasksList: [] }
 }
 
-function createTask() {
-  if (!firstTask || !isTasksParagraph) {
-    firstTask = true
-    createTasksParagraph()
-  }
+document.querySelector('.js-create-button')
+  .addEventListener('click', () => {
+    if (!isTasksParagraph) {
+      firstTask = true
+      createTasksParagraph()
+    }
 
+    createTask()
+  })
+
+taskNameInput.addEventListener('keydown', event => {
+  if (event.key === 'Enter') {
+    if (!isTasksParagraph) {
+      firstTask = true
+      createTasksParagraph()
+    }
+
+    createTask()
+  }
+})
+
+function createTask() {
   taskName = taskNameInput.value
   taskNameInput.value = ''
 
@@ -95,7 +112,7 @@ function createTasksParagraph() {
 
   tasksParagraph.classList.add('tasks-paragraph-margin')
 
-  firstTask = true
+  isTasksParagraph = true
 }
 
 function taskDone(event, taskName) {
@@ -148,10 +165,11 @@ function removeTask(taskName) {
 
   updateTaskField()
   tasksQuantity--
-  
+  console.log(tasksQuantity)
   if (tasksQuantity <= 0) {
     tasksParagraph.innerHTML = ''
     tasksParagraph.classList.remove('tasks-paragraph-margin')
+    isTasksParagraph = false
   }
 }
 
@@ -160,11 +178,5 @@ function defineIndexOfTask(taskName) {
     if (taskName === tasksNamesList[i]) {
       return i
     }
-  }
-}
-
-function keyPressed(event) {
-  if (event.key === 'Enter') {
-    createTask()
   }
 }
