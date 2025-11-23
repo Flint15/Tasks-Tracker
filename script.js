@@ -92,6 +92,8 @@ function createTasksParagraph() {
   `
   tasksParagraph.innerHTML = tasksParagraphHTML
 
+  tasksParagraph.classList.add('tasks-paragraph-margin')
+
   firstTask = true
 }
 
@@ -145,6 +147,11 @@ function removeTask(taskName) {
 
   updateTaskField()
   tasksQuantity--
+
+  if (tasksQuantity <= 0) {
+    tasksParagraph.innerHTML = ''
+    tasksParagraph.classList.remove('tasks-paragraph-margin')
+  }
 }
 
 function defineIndexOfTask(taskName) {
@@ -159,4 +166,5 @@ function keyPressed(event) {
   if (event.key === 'Enter') {
     createTask()
   }
+
 }
