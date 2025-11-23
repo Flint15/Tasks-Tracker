@@ -4,6 +4,7 @@ const taskField = document.querySelector('.tasks-container')
 
 let tasksQuantity = 0
 let firstTask = false
+let isTasksParagraph = false
 const complitedTasks = {}
 
 // for debugging
@@ -33,7 +34,7 @@ function defineData() {
 }
 
 function createTask() {
-  if (!firstTask) {
+  if (!firstTask || !isTasksParagraph) {
     firstTask = true
     createTasksParagraph()
   }
@@ -42,11 +43,11 @@ function createTask() {
   taskNameInput.value = ''
 
   taskHTML = `
-  <div class="task-${taskName} task-field">
+  <div class="task-${taskName} task">
     <input class="js-checkbox-${taskName} checkbox" type="checkbox" 
       onchange="taskDone(this.checked, '${taskName}')">
-    <p>${taskName}</p>
-    <button onclick="
+    <p class="task-name">${taskName}</p>
+    <button class="delete-button" onclick="
       removeTask('${taskName}')
       ">
       Delete
@@ -147,7 +148,7 @@ function removeTask(taskName) {
 
   updateTaskField()
   tasksQuantity--
-
+  
   if (tasksQuantity <= 0) {
     tasksParagraph.innerHTML = ''
     tasksParagraph.classList.remove('tasks-paragraph-margin')
@@ -166,5 +167,4 @@ function keyPressed(event) {
   if (event.key === 'Enter') {
     createTask()
   }
-
 }
